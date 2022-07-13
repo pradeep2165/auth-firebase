@@ -1,5 +1,5 @@
 // import logo from './logo.svg';
-import { signup, useAuth, logout, login } from "../firebase";
+import { signup, useAuth, logout, login, googleSignIn } from "../firebase";
 import { useRef, useState } from "react";
 import GoogleButton from "react-google-button";
 
@@ -8,6 +8,7 @@ function SimpleAuth() {
   const passwordRef = useRef();
   const [loading, setLoading] = useState(false);
   const currentUser = useAuth();
+
   const handelSignup = async () => {
     setLoading(true);
     try {
@@ -17,6 +18,7 @@ function SimpleAuth() {
     }
     setLoading(false);
   };
+
   const handelLogin = async () => {
     setLoading(true);
     try {
@@ -29,6 +31,13 @@ function SimpleAuth() {
   const handelLogout = async () => {
     try {
       await logout();
+    } catch (e) {
+      alert(e);
+    }
+  };
+  const handelGoogleSignIn = async () => {
+    try {
+      await googleSignIn();
     } catch (e) {
       alert(e);
     }
@@ -59,8 +68,8 @@ function SimpleAuth() {
         )}
       </div>
       <hr />
-      <div className="">
-        <GoogleButton />
+      <div>
+        <GoogleButton type="dark" onClick={handelGoogleSignIn} />
       </div>
     </div>
   );
