@@ -1,10 +1,20 @@
 import { useState } from "react";
 import { auth } from "../firebase";
+import { RecaptchaVerifier } from "firebase/auth";
 export default function MobileAuth(){
     const countryCode ="+91";
     const [phoneNumber, setPhoneNumbere] =useState(countryCode);
     const [expandForm, setExpandForm] = useState(false);
 
+    const  generateRecaptcha =()=>{
+        //recaptcha-container is the id defined in div
+        window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {
+            'size': 'invisible',
+            'callback': (response) => {
+              // reCAPTCHA solved, allow signInWithPhoneNumber.                  
+            }
+          }, auth);
+    }
     const requestOTP = (e)=>{
         e.preventDefault();
         if(phoneNumber.length >= 12){
