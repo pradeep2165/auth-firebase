@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import { auth } from "../firebase";
 export default function MobileAuth(){
     const countryCode ="+91";
     const [phoneNumber, setPhoneNumbere] =useState(countryCode);
